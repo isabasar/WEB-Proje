@@ -7,3 +7,9 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
+
+.aciklama-p{
+    text-indent: 40px;
+    font-size: 20px;
+    font-family:'Times New Roman', Times, serif;
+}
