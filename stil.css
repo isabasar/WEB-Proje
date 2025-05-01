@@ -11,5 +11,16 @@
 .aciklama-p{
     text-indent: 40px;
     font-size: 20px;
-    font-family:'Times New Roman', Times, serif;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+.konum-p{
+    font-size: 15px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+.konum-h{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+.kaynakca-container
+{
+    background-color:lightgray;
 }
