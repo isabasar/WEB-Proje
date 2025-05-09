@@ -9,9 +9,8 @@
     <link rel="stylesheet" href="stil.css">
 </head>
 <body class="login-body">
-    <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark ">
-        <div class="container">
-            <a class="navbar-brand" href="#"><img src="resimler/yesilLogo1.jpg" width="130" height="auto"  alt=""></a>
+    <nav class="navbar fixed-top navbar-expand bg-login">
+        <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -19,32 +18,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
+                    <li class="nav-item login-item">
                         <a class="nav-link active" aria-current="page" href="Anasayfa.html">Anasayfa</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item login-item">
                         <a class="nav-link" href="Hakkımda.html">Hakkımda</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="sehrim.html">Şehrim</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Mirasımız
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="12yillikTarih.html">12 Bin yıllık Tarih 'Boncuklu
-                                    Tarla'</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="daraAntikKent.html">Kaybolmayan İzler 'Dara Antik
-                                    Kent'</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="iletişim.html">İletişim</a>
                     </li>
                 </ul>
             </div>
@@ -56,19 +34,21 @@
             <div class="mb-3">
                 <h1>Giriş Yap</h1>
               <label for="exampleInputEmail1" class="form-label">Kullanıcı Giriş</label>
-              <div class="input-box"><input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"></div>
-              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+              <div class="input-box"><input type="email" class="form-control" placeholder="Telefon No Veya E-mail" id="exampleInputEmail1" aria-describedby="emailHelp"></div>
+            
             </div>
             <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label">Şifre</label>
-              <div class="input-box"><input type="password" class="form-control" id="exampleInputPassword1"></div>
+              <label for="exampleInputPassword1"  class="form-label">Şifre</label>
+              <div class="input-box"><input type="password" placeholder="Şifre" class="form-control" id="exampleInputPassword1"></div>
             </div>
             <div class="mb-3 form-check">
               <input type="checkbox" class="form-check-input" id="exampleCheck1">
               <label class="form-check-label" for="exampleCheck1">Beni Hatırla</label>
             </div>
-            <div class=""><button type="submit" class="btn btn-primary">Giriş Yap</button></div>
+            <div class="" style="width: 100%;"><button type="submit" class="btn btn-giris">Giriş Yap</button></div>
+            <div id="emailHelp" class="form-text mt-2">Güvenlik Bilgileriniz İsa Başar Güvencesi altındadır.</div>
           </form>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"

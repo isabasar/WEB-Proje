@@ -59,19 +59,34 @@ text-decoration: wavy;}
     border-radius: 10px;
     padding: 30px;
     background: transparent;
-    
-    border: 2px solid rgba(255,255 ,255, .2);
-    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255 ,255, .3);
+    backdrop-filter: blur(20px);
     color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 .login-body{
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-image: url(resimler/login4.jpg);
+    background-image: url(resimler/login9.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+
+}
+.bg-login
+{
+    background-color: rgba(50, 6, 61, 0.456);
+    color: white;
+}
+.login-item a{
+    color:white;
+}
+
+.btn-giris{
+    width: 100%; background-color: rgb(185, 2, 209); color: white;
+}
+.btn-giris:hover{
 
 }
