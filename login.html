@@ -30,27 +30,73 @@
     </nav><br><br><br>
 
     <div class="log-in">
-        <form>
+        <form action="karsila.php" method="post">
             <div class="mb-3">
                 <h1>Giriş Yap</h1>
-              <label for="exampleInputEmail1" class="form-label">Kullanıcı Giriş</label>
-              <div class="input-box"><input type="email" class="form-control" placeholder="Telefon No Veya E-mail" id="exampleInputEmail1" aria-describedby="emailHelp"></div>
+              <label for="email1" class="form-label">Kullanıcı Giriş</label>
+              <div class="input-box"><input type="text" class="form-control" placeholder="Telefon No Veya E-mail" name="uname" id="uname" ></div>
             
             </div>
             <div class="mb-3">
               <label for="exampleInputPassword1"  class="form-label">Şifre</label>
-              <div class="input-box"><input type="password" placeholder="Şifre" class="form-control" id="exampleInputPassword1"></div>
+              <div class="input-box"><input type="password" placeholder="Şifre" class="form-control" name="sifre" id="sifre"></div>
             </div>
             <div class="mb-3 form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1">
-              <label class="form-check-label" for="exampleCheck1">Beni Hatırla</label>
+              <input type="checkbox" class="form-check-input" name="hatirla" id="hatirla">
+              <label class="form-check-label" for="benihatirla">Beni Hatırla</label>
             </div>
-            <div class="" style="width: 100%;"><button type="submit" class="btn btn-giris">Giriş Yap</button></div>
-            <div id="emailHelp" class="form-text mt-2">Güvenlik Bilgileriniz İsa Başar Güvencesi altındadır.</div>
+            <div class="" style="width: 100%;"><button type="button" onclick="js:formGonder();" class="btn btn-giris">Giriş Yap</button></div>
+            <div id="emailHelp" class="form-text mt-2">Giriş Bilgiriniz, İsa Başar Güvencesi Altındadır.</div>
           </form>
 
     </div>
+    <script>
+        function formGonder(){
+            let uname = document.forms[0].uname.value;
+            var radioHatirla = document.forms[0].hatirla; 
+            var password = document.forms[0].sifre.value;
+            let x = false;
+            let sayac = 0;
+            for(let i = 1; i < uname.length;i++) // kullanıcı girişin rakamlardan oluştuğunu kontrol etme
+            {
+                if(uname[i] >= '0' && uname[i] <= '9')
+                    {
+                        sayac++;
+                    }
+            }   
+            if(sayac != 9)
+            {
+                x =true;
+            }
+            
+            if(uname.length != 10)
+            {
+                alert("Lütfen Geçerli Bir Kullanıcı Adı Giriniz.");
+                return false;
+            }
+            if(uname[0] != 'B' && uname[0] != 'G')
+            {
+                alert("Lütfen Öğrenci Numaranıza Ait İlk Harfi Doğru Giriniz.");
+                return false;
+            }
+            if(x == true)
+            {
+                alert("Lütfen Kullanınıcı Adınızı İlk Hane Hariç Diğer Hanleri Yalnızca Rakamlar  Giriniz");
+                return false;
+            }
+            if(password.length < 8)
+            {
+                alert("Lütfen En Az 8 Haneden Oluşan Şifre Giriniz.");
+                return false;
+            }
+            if(hatirla.checked){
+                alert("Bilgileriniz kaydedilmiştir. İşlem Başarılı.")
+            }
+            else{alert("işlem Başarılı.");}
+            document.forms[0].submit();
 
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
         crossorigin="anonymous"></script>
