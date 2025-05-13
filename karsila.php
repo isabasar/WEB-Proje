@@ -8,6 +8,4 @@ if($gercekUname == $username && $gerceksifre == $password)
 else{
     echo "Giriş Başarısız";
 }
-
-
 ?>

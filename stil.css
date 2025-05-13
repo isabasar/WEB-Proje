@@ -89,6 +89,8 @@ text-decoration: wavy;}
 .btn-giris{
     width: 100%; background-color: rgb(185, 2, 209); color: white;
 }
-.btn-giris:hover{
-
+.resim-ekle{
+    width: 1050px; 
+    height: auto;
+     object-fit: cover;
 }
