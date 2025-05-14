@@ -96,10 +96,12 @@ a:hover {
     background-color: rgba(50, 6, 61, 0.456);
     color: white;
 }
+
 .bg-iletisim {
     background-color: rgba(13, 49, 116, 0.456);
     color: white;
 }
+
 .login-item a {
     color: white;
 }
@@ -115,20 +117,21 @@ a:hover {
     height: auto;
     object-fit: cover;
 }
-.iletisim-body
-{
-    background-image: url(resimler/iletişim2.png);
+
+.iletisim-body {
+    background-image: url(resimler/iletisim6.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
 }
+
 .body-formiletisim {
-     background: transparent;
+    background: transparent;
     border: 1px solid rgba(255, 255, 255, .3);
-    background-color: rgba(65, 65, 65, 0.2);
+    background-color: rgba(40, 40, 40, 0.2);
     backdrop-filter: blur(15px);
     color: white;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     box-shadow: 0px 0px 20px 1px black;
     max-width: 600px;
     margin: auto;
@@ -142,5 +145,13 @@ label {
 }
 
 .error {
-    color: red;
+    color: white;
+}
+
+.iletisim-hr {
+    color: white;
+}
+.card-havali:hover{
+    transform: scale(1.05);
+    transition: 350ms;
 }
