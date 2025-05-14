@@ -5,20 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>İsa Başar - İletişim</title>
+    <script src="https://unpkg.com/vue@3"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <style>
-        a:hover{
-            color: red;
-            transition: 0.7s;
-        }
-    </style>
+    <link rel="stylesheet" href="stil.css">
 </head>
 
-<body>
-    <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark ">
+<body class="iletisim-body">
+    <nav class="navbar fixed-top navbar-expand bg-iletisim">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img src="resimler/yesilLogo1.jpg" width="130" height="auto"  alt=""></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -26,37 +21,147 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
+                    <li class="nav-item login-item">
                         <a class="nav-link active" aria-current="page" href="Anasayfa.html">Anasayfa</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item login-item">
                         <a class="nav-link" href="Hakkımda.html">Hakkımda</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="sehrim.html">Şehrim</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Mirasımız
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="12yillikTarih.html">12 Bin yıllık Tarih 'Boncuklu
-                                    Tarla'</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="daraAntikKent.html">Kaybolmayan İzler 'Dara Antik
-                                    Kent'</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
+                    <li class="nav-item login-item">
                         <a class="nav-link" href="iletişim.html">İletişim</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+<br><br>
+    <div class="body-formiletisim">
+        <div id="app">
+            <h2>İletişim Formu</h2>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Ad Soyad</label>
+                <input v-model="form.name" type="text" class="form-control" placeholder="Ad Soyad" aria-describedby="emailHelp">
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">E-mail adres</label>
+                <input v-model="form.email" type="text" placeholder="E-mail Adresi" class="form-control" aria-describedby="emailHelp">
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Telefon Numarası</label>
+                <input v-model="form.phone" type="text" placeholder="Telefon No" class="form-control" aria-describedby="emailHelp">
+            </div>
+            <label class="mb-2">Eğitim Durumu</label>
+            <select class="form-control" v-model="form.subject" aria-label="Small select example">
+                <option value="1">Lisans Öğrencisi</option>
+                <option value="2">Ön Lisans Örencisi</option>
+                <option value="3">Öğretim Görevlisi</option>
+                <option value="4">Diğer</option>
+            </select>
+
+            <label class="mb-2">Mesaj:</label>
+            <div class="form-floating">
+                <textarea class="form-control" v-model="form.message" placeholder="Bir Mesaj Bırakınız..."
+                    id="floatingTextarea2" style="height: 100px"></textarea>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" v-model="form.agree">
+                <label class="form-check-label" for="defaultCheck1">
+                    Gizlilik politikasını kabul ediyorum
+                </label>
+            </div>
+            <label>İletişim Tercihi:</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" value="Email" v-model="form.contactMethod">
+                <label class="form-check-label" for="radioDefault1">
+                    Mail
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" value="Telefon" v-model="form.contactMethod">
+                <label class="form-check-label" for="radioDefault2">
+                    Telefon
+                </label>
+            </div>
+
+            <br>
+            <div class="d-grid gap-2 col-12 mx-auto">
+                <button class="btn btn-primary" @click="validateWithVue" style="width: 50%;" type="button">Vue.js ile Kontrol Et</button>
+                <button class="btn btn-danger" onclick="validateWithJS()" style="width: 50%;">JavaScript ile Kontrol</button>
+            </div>
+
+            <div class="error" v-if="errors.length">
+                <ul>
+                    <li v-for="error in errors">{{ error }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    form: {
+                        name: '',
+                        email: '',
+                        phone: '',
+                        subject: '',
+                        message: '',
+                        contactMethod: '',
+                        agree: false
+                    },
+                    errors: []
+                };
+            },
+            methods: {
+                validateWithVue() {
+                    this.errors = [];
+
+                    if (!this.form.name) this.errors.push("Ad Soyad boş olamaz.");
+                    if (!this.form.email || !/^\S+@\S+\.\S+$/.test(this.form.email)) this.errors.push("Geçerli bir email giriniz.");
+                    if (!this.form.phone || !/^\d+$/.test(this.form.phone)) this.errors.push("Telefon sadece rakamlardan oluşmalıdır.");
+                    if (!this.form.subject) this.errors.push("Bir konu seçilmelidir.");
+                    if (!this.form.message) this.errors.push("Mesaj alanı boş olamaz.");
+                    if (!this.form.contactMethod) this.errors.push("İletişim tercihi seçilmelidir.");
+                    if (!this.form.agree) this.errors.push("Gizlilik politikası kabul edilmelidir.");
+
+                    if (this.errors.length === 0) {
+                        alert("Vue.js doğrulama başarılı! Form gönderilebilir.");
+                    }
+                }
+            }
+        }).mount("#app");
+
+        function validateWithJS() {
+            const name = document.querySelector('input[type="text"]').value;
+            const email = document.querySelectorAll('input[type="text"]')[1].value;
+            const phone = document.querySelectorAll('input[type="text"]')[2].value;
+            const subject = document.querySelector('select').value;
+            const message = document.querySelector('textarea').value;
+            const contactMethod = document.querySelector('input[type="radio"]:checked');
+            const agree = document.querySelector('input[type="checkbox"]').checked;
+
+            let errors = [];
+
+            if (!name) errors.push("Ad Soyad boş olamaz.");
+            if (!/^\S+@\S+\.\S+$/.test(email)) errors.push("Geçerli bir email giriniz.");
+            if (!/^\d+$/.test(phone)) errors.push("Telefon sadece rakam içermelidir.");
+            if (!subject) errors.push("Bir konu seçilmelidir.");
+            if (!message) errors.push("Mesaj boş olamaz.");
+            if (!contactMethod) errors.push("İletişim tercihi seçilmelidir.");
+            if (!agree) errors.push("Gizlilik politikası kabul edilmelidir.");
+
+            if (errors.length > 0) {
+                alert("Hatalar:\n" + errors.join("\n"));
+            } else {
+                alert("JavaScript doğrulama başarılı! Form gönderilebilir.");
+            }
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
         crossorigin="anonymous"></script>
