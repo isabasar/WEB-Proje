@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="content-type" content="text/html; charset=windows-1254" />
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-9" />
+    <title>İsa Başar - İlgi Alanım</title>
+    <meta name="keywords" content="ilgi alanım,kuran,hafis,Hakkımda,bilgi,özgeçmiş, cv, isa başar, mardin">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="still-ilgiAlanim.css">
+</head>
+
+<body>
+    <nav class="navbar fixed-top navbar-expand navbar-dark bg-dark ">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Anasayfa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Hakkımda.html">Hakkımda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="ilgialani.html">İlgi Alanım</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br><br><br>
+    <h1>📖 Günlük Ayet ve Hadis</h1>
+
+    <div class="kart">
+        <h2>🕌 Sahabe Hayatlarından Kıssalar</h2>
+        <div id="yukleniyor-kissa">Yükleniyor...</div>
+        <div id="kissa-container">
+            <h3 id="kissa-baslik"></h3>
+            <p id="kissa-icerik"></p>
+            <div class="hisse" id="kissa-hisse"></div>
+        </div>
+        <button onclick="rastgeleKissaGetir()">🔁 Yeni Kıssa Getir</button>
+    </div>
+
+    <div class="kart">
+        <h2>Peygamber Efendimizden (s.a.v.) Bir Hadis</h2>
+        <p id="hadith-text">...</p>
+        <p id="hadith-reference"><em>(Kaynak)</em></p>
+        <button onclick="fetchRandomHadith()">Yeni Hadis Getir</button>
+    </div>
+
+    <div class="kart">
+        <h2>🌿 Günlük Kur'an Ayeti</h2>
+        <div id="yukleniyor-ayet">Yükleniyor...</div>
+        <div class="ayet-container">
+            <p id="gunluk-ayet"></p>
+            <p id="ayet-meal"></p>
+        </div>
+        <button onclick="gunlukAyetGetir()">🔁 Yeni Ayet Getir</button>
+    </div>
+
+
+
+    <script>
+
+        async function gunlukAyetGetir() {
+            try {
+                document.getElementById("yukleniyor-ayet").style.display = "block";
+                document.getElementById("gunluk-ayet").innerText = "";
+                document.getElementById("ayet-meal").innerText = "";
+
+
+                const response = await fetch("https://api.alquran.cloud/v1/ayah/random/tr.asad");
+                const data = await response.json();
+
+                document.getElementById("gunluk-ayet").innerHTML =
+                    `<strong>${data.data.surah.name} Suresi ${data.data.numberInSurah}. Ayet:</strong><br>"${data.data.text}"`;
+                document.getElementById("ayet-meal").innerHTML = `<em>📖 Meal:</em> ${data.data.translation}`;
+
+                document.getElementById("yukleniyor-ayet").style.display = "none";
+            } catch (error) {
+                document.getElementById("gunluk-ayet").innerHTML =
+                    "⚠️ Ayet yüklenirken hata oluştu. Lütfen internet bağlantınızı kontrol edip tekrar deneyin.";
+                document.getElementById("yukleniyor-ayet").style.display = "none";
+
+                const yedekAyetler = [
+                    {
+                        surah: "Bakara",
+                        ayetNo: 286,
+                        text: "Allah hiçbir nefse taşıyamayacağı yükü yüklemez...",
+                        meal: "Herkesin kazandığı iyilik kendi yararına, kötülük de kendi zararınadır..."
+                    },
+                    {
+                        surah: "Yasin",
+                        ayetNo: 82,
+                        text: "Bir şeyi dilediği zaman, O'nun emri o şeye ancak 'Ol!' demektir. O da hemen oluverir.",
+                        meal: "Allah'ın yaratması bu kadar kolay ve mükemmeldir."
+                    }
+                ];
+                const rastgele = yedekAyetler[Math.floor(Math.random() * yedekAyetler.length)];
+                document.getElementById("gunluk-ayet").innerHTML =
+                    `<strong>${rastgele.surah} Suresi ${rastgele.ayetNo}. Ayet:</strong><br>"${rastgele.text}"`;
+                document.getElementById("ayet-meal").innerHTML = `<em>📖 Meal:</em> ${rastgele.meal}`;
+            }
+        }
+
+        const sahabeKissalari = [
+            {
+                baslik: "Hz. Ebu Bekir'in Fedakarlığı",
+                icerik: "Hz. Ebu Bekir (r.a.) tüm malını Allah yolunda infak ettiğinde, Hz. Peygamber (s.a.v.) ona 'Ailene ne bıraktın?' diye sordu. O ise 'Allah ve Resulünü bıraktım' cevabını verdi. Bu olay üzerine Allah Teala, 'Allah yolunda harcayın, kendinizi kendi ellerinizle tehlikeye atmayın' ayetini indirdi.",
+                hisse: "Gerçek teslimiyet, Allah'a güvenerek vermektir. Mal mülk geçicidir, Allah'ın rızası ebedidir."
+            },
+            {
+                baslik: "Hz. Ömer'in Adaleti",
+                icerik: "Halife Hz. Ömer (r.a.) gece vakti Medine sokaklarını dolaşırken aç bir çocuğun ağladığını duydu. Sebebini sorduğunda, annesinin kendisini susturmak için suya ekmek doğrayıp yemek gibi gösterdiğini öğrendi. Ertesi gün devlet hazinesinden aileye maaş bağlattı ve 'Bir çocuk aç yatarken ben nasıl tok yatarım?' dedi.",
+                hisse: "Adalet, yöneticinin halkının derdiyle dertlenmesidir. İslam devletinde hiç kimse aç kalmaz."
+            },
+            {
+                baslik: "Hz. Osman'ın Hayâsı",
+                icerik: "Hz. Osman (r.a.) o kadar hayâ sahibiydi ki, Hz. Peygamber (s.a.v.) onun hakkında 'Meleklerin bile hayâ ettiği bir insan' buyurmuştur. Bir defasında Peygamberimiz abdest alırken Osman (r.a.) geldi, Peygamberimiz hemen örtündü. Bunun sebebi sorulduğunda 'Meleklerin bile hayâ ettiği bir insanın yanında nasıl açık dururum?' buyurdu.",
+                hisse: "Hayâ imandandır. Mümin, Allah'ın her an kendisini gördüğünü bilerek yaşar."
+            },
+            {
+                baslik: "Hz. Ali'nin Cesareti",
+                icerik: "Bedir Savaşı'nda müşriklerin en güçlü savaşçıları teke tek mücadele için meydana çıktığında, henüz 20'li yaşlarda olan Hz. Ali (r.a.) hepsini yenerek İslam ordusuna büyük moral oldu. Hz. Peygamber (s.a.v.) 'Zülfikar'dan başka kılıç, Ali'den başka yiğit yoktur' buyurarak onu övdü.",
+                hisse: "Gerçek cesaret, hak yolunda korkusuzca mücadele etmektir. Genç yaşta büyük işler başarılabilir."
+            },
+            {
+                baslik: "Hz. Talha'nın Kahramanlığı",
+                icerik: "Uhud Savaşı'nda Hz. Peygamber (s.a.v.)'i korumak için vücudunu kalkan yapan Hz. Talha (r.a.), bu uğurda kolunu kaybetti. O kadar çok ok ve kılıç yarası almıştı ki, Hz. Peygamber (s.a.v.) 'Talha cennette bana komşu olacaktır' müjdesini verdi.",
+                hisse: "Allah yolunda fedakarlık yapanlar, ebedi mükafatlara nail olurlar."
+            },
+            {
+                baslik: "Hz. Zübeyr'in Azmi",
+                icerik: "Hz. Zübeyr (r.a.) İslam'ın ilk yıllarında çok zulüm gördü. Dayısı onu ateş dolu bir çukura atarak 'Muhammed'den vazgeç' dediğinde, küçük Zübeyr 'Asla dinimden dönmem!' diye haykırdı. Bu imanı sayesinde Allah onu kurtardı ve İslam'ın en büyük kahramanlarından biri yaptı.",
+                hisse: "Hak yolunda sabredenler, Allah'ın yardımına mazhar olurlar."
+            },
+            {
+                baslik: "Hz. Sad bin Ebi Vakkas'ın Duası",
+                icerik: "Hz. Sad (r.a.) çocukken hasta olduğunda annesi 'Eğer iyileşir de Muhammed'e gitmezsen sana şunu şunu vereceğim' diye yemin etti. İyileşince annesinin baskılarına rağmen İslam'dan dönmedi. Bunun üzerine Allah Teala 'Anne babaya itaat edin, ancak Allah'a isyanda olmaz' ayetini indirdi.",
+                hisse: "Allah'a iman, her şeyin üstündedir. Ancak anne babaya da saygılı olunmalıdır."
+            },
+            {
+                baslik: "Hz. Abdurrahman bin Avf'ın Ticareti",
+                icerik: "Medine'ye hicret ettiğinde hiçbir şeyi olmayan Hz. Abdurrahman (r.a.)'a Ensar'dan biri malının yarısını teklif etti. O ise 'Bana çarşının yolunu göster yeter' dedi. Kısa sürede helal ticaretle zengin oldu ve servetinin tamamını Allah yolunda harcadı.",
+                hisse: "Alın teriyle kazanmak en şerefli yoldur. Zenginlik Allah yolunda harcanınca bereketlenir."
+            },
+            {
+                baslik: "Hz. Bilal'in Sabrı",
+                icerik: "Köle olan Hz. Bilal (r.a.) iman ettiği için kızgın çöllerde üzerine taşlar konularak işkence gördü. 'Bir olan Allah' diye haykırmaya devam etti. Hz. Ebu Bekir onu satın alıp azat etti. Daha sonra İslam'ın ilk müezzini oldu.",
+                hisse: "Zorluklar karşısında sabır, mümini yüceltir. Allah yolunda çekilen sıkıntılar boşa gitmez."
+            },
+            {
+                baslik: "Hz. Selman'ın İlim Aşkı",
+                icerik: "Fars asıllı Hz. Selman (r.a.) hakikati arayışında köle olarak satıldı, çok eziyet çekti. Sonunda Medine'ye ulaşıp Hz. Peygamber (s.a.v.)'i buldu. Hendek Savaşı'nda Pers tekniklerini kullanarak hendek kazılmasını önerdi ve İslam ordusunu kurtardı.",
+                hisse: "Hakikat arayışı kişiyi en güzele ulaştırır. İlim her yerde aranmalıdır."
+            },
+            {
+                baslik: "Hz. Mus'ab'ın Tebliği",
+                icerik: "Genç Mus'ab (r.a.) Medine'ye ilk İslam'ı anlatmaya gittiğinde, kısa sürede bütün şehri fethetmişti. Bir gün yüksek bir yerde Kur'an okurken müşrikler tarafından şehit edildi. Vücudu parçalanmıştı ama yüzünde tebessüm vardı.",
+                hisse: "Tebliğ en büyük cihattır. Allah yolunda şehit olmak en yüce mertebedir."
+            },
+            {
+                baslik: "Hz. Hamza'nın Şehadeti",
+                icerik: "İslam'ın en güçlü savaşçısı Hz. Hamza (r.a.), Uhud'da müşriklerin en iyi savaşçılarını tek tek devirdi. Ancak bir okla şehit düştü. Hz. Peygamber (s.a.v.) onun için 'Allah'ın aslanı' buyurdu ve şehitlerin efendisi olduğunu müjdeledi.",
+                hisse: "Allah yolunda şehit olmak en büyük şereftir. Şehitler ölmez, daima diridirler."
+            },
+            {
+                baslik: "Hz. Ebu Zer'in Zühdü",
+                icerik: "Hz. Ebu Zer (r.a.) dünya malına hiç değer vermezdi. Bir gün Hz. Peygamber (s.a.v.) ona 'Çölde tek başına ölürsen ne yaparsın?' diye sordu. 'Allah'ı zikrederim, eğer bana yardım gönderirse şükrederim' cevabını verdi. Peygamberimiz 'İşte gerçek iman budur' buyurdu.",
+                hisse: "Dünya malı geçicidir. Asıl zenginlik gönül zenginliğidir."
+            },
+            {
+                baslik: "Hz. Habbab'ın Sabrı",
+                icerik: "Demirci olan Hz. Habbab (r.a.) iman ettiği için kızgın kömürler üzerine yatırılıp işkence gördü. Sırtındaki yaralar iyileştiğinde 'Peygamberimiz daha çok eziyet çekiyor' diyerek şükretti.",
+                hisse: "Belalar karşısında sabır, mümini olgunlaştırır. En büyük örnek Peygamberimizdir."
+            },
+            {
+                baslik: "Hz. Muaz'ın İlmi",
+                icerik: "Yemen'e vali olarak gönderilen Hz. Muaz (r.a.)'a Hz. Peygamber (s.a.v.) 'Nasıl hükmedeceksin?' diye sordu. 'Allah'ın kitabıyla' cevabını verdi. 'Bulamazsan?' dediğinde 'Peygamberin sünnetiyle' dedi. 'Onda da bulamazsan?' sorusuna 'Kendi reyimle ictihad ederim' diye cevap verdi. Peygamberimiz bu cevaba çok sevindi.",
+                hisse: "İlimle amel etmek en büyük ibadettir. Müslüman her durumda hikmetle hareket etmelidir."
+            }
+        ];
+
+        function rastgeleKissaGetir() {
+            document.getElementById("yukleniyor-kissa").style.display = "block";
+            document.getElementById("kissa-baslik").innerText = "";
+            document.getElementById("kissa-icerik").innerText = "";
+            document.getElementById("kissa-hisse").innerText = "";
+
+            setTimeout(() => {
+                const rastgeleIndex = Math.floor(Math.random() * sahabeKissalari.length);
+                const kissa = sahabeKissalari[rastgeleIndex];
+
+                document.getElementById("kissa-baslik").innerText = kissa.baslik;
+                document.getElementById("kissa-icerik").innerText = kissa.icerik;
+                document.getElementById("kissa-hisse").innerHTML = `✏️ <strong>Kıssadan Hisse:</strong> ${kissa.hisse}`;
+
+                document.getElementById("yukleniyor-kissa").style.display = "none";
+            }, 500);
+        }
+
+        async function fetchRandomHadith() {
+            try {
+                const response = await fetch("https://random-hadith-generator.vercel.app/bukhari/");
+                const data = await response.json();
+
+                const hadith = data.data;
+
+                document.getElementById("hadith-text").innerText = hadith.hadith_english;
+                document.getElementById("hadith-reference").innerText = `(Kaynak: ${hadith.reference})`;
+            } catch (error) {
+                console.error("API hatası:", error);
+                document.getElementById("hadith-text").innerText = "Hadis yüklenirken bir hata oluştu.";
+            }
+        }
+
+        window.onload = function () {
+            gunlukAyetGetir();
+            rastgeleKissaGetir();
+            fetchRandomHadith();
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
